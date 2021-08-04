@@ -66,6 +66,8 @@ class Cart(db.Model):
         user = User.query.filter_by(id=int(self.user)).first()
         if user:
             data["user"] = user.serialize()
+        
+        return data
 
 
 class CartItem(db.Model):

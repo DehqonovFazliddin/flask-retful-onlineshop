@@ -5,18 +5,18 @@ from models import Cart
 from config import db
 
 parser = reqparse.RequestParser()
-parser.add_argument("name")
+parser.add_argument("user")
+parser.add_argument("is_active")
 
 
 class AllCartResource(Resource):
-    @login_required
     def get(self):
         carts = Cart.query.all()
         return [cart.serialize() for cart in carts]
     
     def post(self):
         args = parser.parse_args()
-        cart = Cart(name=args["name"])
+        cart = Cart(user=args["user"], is_active=args['is_active'])
         db.session.add(cart)
         db.session.commit()
         return cart.serialize()
