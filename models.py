@@ -61,12 +61,11 @@ class Cart(db.Model):
     def serialize(self):
         data = {
             "id": self.id,
+            "is_active": self.is_active
         }
         user = User.query.filter_by(id=int(self.user)).first()
         if user:
             data["user"] = user.serialize()
-
-        
 
 
 class CartItem(db.Model):
