@@ -23,3 +23,13 @@ class SingleProductResource(Resource):
             return product.serialize(), 201
         else:
             return abort(404, message="Requested product is not found.")
+
+    def delete(self, pk):
+        product = Product.query.filter_by(id=pk)
+        if not product.count() == 0:
+            product = product.first()
+            db.session.delete(product)
+            db.session.commit()
+            return "", 204
+        else:
+            return abort(404, message="Requested product is not found.")
